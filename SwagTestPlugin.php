@@ -7,6 +7,7 @@ use Shopware\Bundle\StoreFrontBundle\Struct\ShopContext;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
+use Shopware\Components\Plugin\Context\UpdateContext;
 use sOrder;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Zend_Db_Statement_Pdo;
@@ -15,8 +16,17 @@ class SwagTestPlugin extends Plugin
 {
     public function install(InstallContext $context)
     {
-        $this->createAttributes();
+        $this->createAttributes('feld1');
 
+    }
+
+    /**
+     * @param UpdateContext $context
+     */
+    public function update(UpdateContext $context)
+    {
+        parent::update($context);
+        $this->createAttributes('feld2');
     }
 
     public static function getSubscribedEvents()
@@ -134,14 +144,14 @@ class SwagTestPlugin extends Plugin
         $subject->orderAttributes['meinattribut'] = '15. September';
     }
 
-    private function createAttributes()
+    private function createAttributes($field)
     {
         $crud = Shopware()->Container()->get('shopware_attribute.crud_service');
 
-        $crud->update('s_articles_attributes', 'newText2', 'string', [
+        $crud->update('s_articles_attributes', $field, 'string', [
             'translatable' => true,
             'displayInBackend' => true,
-            'label' => 'Neues textfeld2'
+            'label' => $field
         ], null, true);
     }
 
