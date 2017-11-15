@@ -1,0 +1,14 @@
+{
+  "name": "taltholtmann/plugintest",
+  "keywords": ["shopware", "profiling", "plugin"],
+  "description": "Shopware Testplugin",
+  "license": "MIT",
+  "type": "shopware-plugin",
+  "extra": {
+    "installer-name": "SwagTestPlugin"
+  },
+  "require": {
+  },
+  "scripts": {
+  }
+}
